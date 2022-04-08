@@ -1,5 +1,7 @@
 package DesviacionEstandar;
 
+import java.lang.Math;
+
 public class DesviacionEstandar {
 
     public DesviacionEstandar() {
@@ -13,24 +15,32 @@ public class DesviacionEstandar {
          * Calculamos la distancio de cada dato a la media y luego lo elevamos al
          * cuadrado
          */
-        calcularDistancia(numeros, media);
+        double sumaDistancias = calcularDistancia(numeros, media);
 
-        return 0;
+        // En este paso dividimos el resultado del paso 3 entre la variable NNN, que es
+        // el número de datos.
+        int n = numeros.length;
+
+        double division = divisionDeSumaDistancias(sumaDistancias, n);
+
+        // sacamos la raíz cuadrada de la respuesta obtenida en el paso 4 y listo.
+
+        double desEstandar = Math.sqrt(division);
+
+        return desEstandar;
     }
 
     public double calcularMedia(double[] numeros) {
         // Se empieza calculando la media del conjunto de numeros
         int i;
-        double suma = 0;
+        double sumaDistancias = 0;
         double media = 0;
 
-        for (i = 0; i < numeros.length - 1; i++) {
-            suma = suma + numeros[i];
+        for (i = 0; i <= numeros.length - 1; i++) {
+            sumaDistancias = sumaDistancias + numeros[i];
         }
 
-        media = suma / numeros.length;
-
-        System.out.println(media);
+        media = sumaDistancias / numeros.length;
 
         return media;
     }
@@ -43,25 +53,33 @@ public class DesviacionEstandar {
 
         double distancia = 0;
         int i = 0;
-        double suma = 0;
+        double sumaDistancias = 0;
 
-        for (i = 0; i < numeros.length - 1; i++) {
+        for (i = 0; i <= numeros.length - 1; i++) {
             distancia = (numeros[i] - media) * (numeros[i] - media);
 
-            suma = suma + distancia;
+            // Aqui sumamos las distancias
+            sumaDistancias = sumaDistancias + distancia;
         }
 
-        System.out.println(suma);
-        return suma;
+        return sumaDistancias;
+    }
+
+    public double divisionDeSumaDistancias(double suma, int numDatos) {
+        double division = suma / numDatos;
+
+        return division;
     }
 
     public static void main(String[] args) {
-        double[] ListaNumeros = { 5, 7, 8.2, 7.9, 9, 3 };
+        double[] ListaNumeros = { 6, 2, 3, 1
+        };
 
         DesviacionEstandar dEstandar = new DesviacionEstandar();
 
-        dEstandar.DesviacionEstandarFormula(ListaNumeros);
+        double resultado = dEstandar.DesviacionEstandarFormula(ListaNumeros);
 
+        System.out.println("La desviacion estandar es: " + resultado);
     }
 
 }
